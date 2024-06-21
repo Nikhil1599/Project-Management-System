@@ -1,0 +1,21 @@
+.card {
+  background-color: #ffffff; /* White background */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 1rem;
+}
+.menuItem {
+  border: 2px solid #3f0fb7;
+}
+.activeMenuItem {
+  background-color: #3f0fb7;
+  color: white;
+}
+.logoutButton {
+  color: white !important;
+  background-color: #ce4100;
+}
+.customButton {
+  color: rgb(255, 255, 255) !important;
+  background-color: #ce4100;
+}

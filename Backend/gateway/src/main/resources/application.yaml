@@ -1,0 +1,40 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: GATEWAY-SERVICE  # Maintained uppercase name
+  cloud:
+    gateway:
+      routes:
+        - id: USER-SERVICE  # Maintained uppercase service names
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path= /auth/**, /user/**, /api/user/**  # Removed trailing slash for clarity
+
+        - id: TASK-SERVICE  # Maintained uppercase service names
+          uri: lb://TASK-SERVICE
+          predicates:
+            - Path= /api/tasks/**, /tasks/**  # Removed trailing slash for clarity
+
+        - id: SUBMISSION-SERVICE  # Maintained uppercase service names
+          uri: lb://SUBMISSION-SERVICE
+          predicates:
+            - Path= /api/submissions/**, /submissions/**  # Removed trailing slash for clarity
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':  # Matches all paths
+            allowedOrigins: "*"  # Allow requests from all origins (be cautious for production)
+            allowedMethods: "*"  # Allow all HTTP methods (be cautious for production)
+            allowedHeaders: "*"  # Allow all headers (be cautious for production)
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8085/eureka/
